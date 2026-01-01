@@ -68,8 +68,11 @@ jobs:
 
       - name: Deploy to DEV with Helm
         run: |
-          helm upgrade --install hostflow-dev ./charts/communication-service \
+          IMAGE_TAG=${GITHUB_SHA::7}
+          helm upgrade --install hostflow-dev-communication-service ./helm/helm/charts/communication-service \
             --namespace dev \
+            --create-namespace \
             --set image.repository=${{ secrets.DOCKERHUB_USERNAME }}/communication-service \
-            --set image.tag=${{ env.IMAGE_TAG }} \
-            --set image.pullPolicy=Always
+            --set image.tag=$IMAGE_TAG \
+            --set image.pullPolicy=Always \
+            --set actualSecrets.DATABASE_URL="${{ secrets.DB_URL }}" \
