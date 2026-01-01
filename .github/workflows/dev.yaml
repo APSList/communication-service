@@ -69,7 +69,7 @@ jobs:
       - name: Deploy to DEV with Helm
         run: |
           IMAGE_TAG=${GITHUB_SHA::7}
-          helm upgrade --install hostflow-dev-communication-service ./Hostflow/helm/charts/communication-service \
+          helm upgrade --install communication-service-dev ./Hostflow/helm/charts/communication-service \
             --namespace dev \
             --create-namespace \
             --set image.repository=${{ secrets.DOCKERHUB_USERNAME }}/communication-service \
