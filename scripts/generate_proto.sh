@@ -6,14 +6,19 @@ OUT_DIR=src/generated
 
 mkdir -p "$OUT_DIR"
 
-python -m grpc_tools.protoc \
-    -I"$PROTO_DIR" \
-    --python_out="$OUT_DIR" \
-    --grpc_python_out="$OUT_DIR" \
-    "$PROTO_DIR"/communication.proto
+# Generate Python gRPC code for all .proto files in proto/
+for protofile in "$PROTO_DIR"/*.proto; do
+    python -m grpc_tools.protoc \
+        -I"$PROTO_DIR" \
+        --python_out="$OUT_DIR" \
+        --grpc_python_out="$OUT_DIR" \
+        "$protofile"
+done
 
+# Fix imports in generated _pb2_grpc.py files to use relative imports
 for file in "$OUT_DIR"/*_pb2_grpc.py; do
     [ -e "$file" ] || continue
-    sed -i '' 's@^import communication_pb2 as @from . import communication_pb2 as @' "$file" 2>/dev/null || \
-    sed -i 's@^import communication_pb2 as @from . import communication_pb2 as @' "$file"
+    # Replace lines like: import foo_pb2 as foo__pb2  -> from . import foo_pb2 as foo__pb2
+    sed -i '' 's@^import \(.*_pb2\) as @from . import \1 as @' "$file" 2>/dev/null || \
+    sed -i 's@^import \(.*_pb2\) as @from . import \1 as @' "$file"
 done
