@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from . import communications_pb2 as communications__pb2
+from . import communication_pb2 as communication__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -18,14 +18,14 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in communications_pb2_grpc.py depends on'
+        + ' but the generated code in communication_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
-class HelloWorldStub(object):
+class CommunicationServiceStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -34,43 +34,43 @@ class HelloWorldStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.SayHello = channel.unary_unary(
-                '/communications.HelloWorld/SayHello',
-                request_serializer=communications__pb2.HelloRequest.SerializeToString,
-                response_deserializer=communications__pb2.HelloReply.FromString,
+        self.SendMessage = channel.unary_unary(
+                '/communication.CommunicationService/SendMessage',
+                request_serializer=communication__pb2.MessageRequest.SerializeToString,
+                response_deserializer=communication__pb2.MessageReply.FromString,
                 _registered_method=True)
 
 
-class HelloWorldServicer(object):
+class CommunicationServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def SayHello(self, request, context):
+    def SendMessage(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_HelloWorldServicer_to_server(servicer, server):
+def add_CommunicationServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'SayHello': grpc.unary_unary_rpc_method_handler(
-                    servicer.SayHello,
-                    request_deserializer=communications__pb2.HelloRequest.FromString,
-                    response_serializer=communications__pb2.HelloReply.SerializeToString,
+            'SendMessage': grpc.unary_unary_rpc_method_handler(
+                    servicer.SendMessage,
+                    request_deserializer=communication__pb2.MessageRequest.FromString,
+                    response_serializer=communication__pb2.MessageReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'communications.HelloWorld', rpc_method_handlers)
+            'communication.CommunicationService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('communications.HelloWorld', rpc_method_handlers)
+    server.add_registered_method_handlers('communication.CommunicationService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
-class HelloWorld(object):
+class CommunicationService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def SayHello(request,
+    def SendMessage(request,
             target,
             options=(),
             channel_credentials=None,
@@ -83,9 +83,9 @@ class HelloWorld(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/communications.HelloWorld/SayHello',
-            communications__pb2.HelloRequest.SerializeToString,
-            communications__pb2.HelloReply.FromString,
+            '/communication.CommunicationService/SendMessage',
+            communication__pb2.MessageRequest.SerializeToString,
+            communication__pb2.MessageReply.FromString,
             options,
             channel_credentials,
             insecure,

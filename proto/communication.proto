@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package communication;
+
+service CommunicationService {
+  rpc SendMessage (MessageRequest) returns (MessageReply);
+}
+
+message MessageRequest {
+  int64 customer_id = 1;
+}
+
+message MessageReply {
+  string message = 1;
+}
