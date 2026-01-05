@@ -1,15 +1,19 @@
 syntax = "proto3";
 
-package communication;
+package communication.v1;
 
 service CommunicationService {
-  rpc SendMessage (MessageRequest) returns (MessageReply);
+  rpc SendEmail(SendEmailRequest) returns (CommunicationResponse);
 }
 
-message MessageRequest {
-  int64 customer_id = 1;
+message SendEmailRequest {
+  string customer_id = 1;
+  string property_id = 2;
+  string type = 3;
+  string payment_url = 4;
 }
 
-message MessageReply {
-  string message = 1;
+message SendEmailResponse {
+  bool success = 1;
+  string message = 2;
 }
