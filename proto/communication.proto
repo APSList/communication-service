@@ -3,7 +3,7 @@ syntax = "proto3";
 package communication.v1;
 
 service CommunicationService {
-  rpc SendEmail(SendEmailRequest) returns (CommunicationResponse);
+  rpc SendEmail(SendEmailRequest) returns (SendEmailResponse);
 }
 
 message SendEmailRequest {
