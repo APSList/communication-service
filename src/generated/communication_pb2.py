@@ -24,17 +24,17 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13\x63ommunication.proto\x12\rcommunication\"%\n\x0eMessageRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\x03\"\x1f\n\x0cMessageReply\x12\x0f\n\x07message\x18\x01 \x01(\t2a\n\x14\x43ommunicationService\x12I\n\x0bSendMessage\x12\x1d.communication.MessageRequest\x1a\x1b.communication.MessageReplyb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13\x63ommunication.proto\x12\x10\x63ommunication.v1\"_\n\x10SendEmailRequest\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\t\x12\x13\n\x0bproperty_id\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x13\n\x0bpayment_url\x18\x04 \x01(\t\"5\n\x11SendEmailResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t2l\n\x14\x43ommunicationService\x12T\n\tSendEmail\x12\".communication.v1.SendEmailRequest\x1a#.communication.v1.SendEmailResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'communication_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_MESSAGEREQUEST']._serialized_start=38
-  _globals['_MESSAGEREQUEST']._serialized_end=75
-  _globals['_MESSAGEREPLY']._serialized_start=77
-  _globals['_MESSAGEREPLY']._serialized_end=108
-  _globals['_COMMUNICATIONSERVICE']._serialized_start=110
-  _globals['_COMMUNICATIONSERVICE']._serialized_end=207
+  _globals['_SENDEMAILREQUEST']._serialized_start=41
+  _globals['_SENDEMAILREQUEST']._serialized_end=136
+  _globals['_SENDEMAILRESPONSE']._serialized_start=138
+  _globals['_SENDEMAILRESPONSE']._serialized_end=191
+  _globals['_COMMUNICATIONSERVICE']._serialized_start=193
+  _globals['_COMMUNICATIONSERVICE']._serialized_end=301
 # @@protoc_insertion_point(module_scope)

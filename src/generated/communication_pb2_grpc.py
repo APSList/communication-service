@@ -34,17 +34,17 @@ class CommunicationServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.SendMessage = channel.unary_unary(
-                '/communication.CommunicationService/SendMessage',
-                request_serializer=communication__pb2.MessageRequest.SerializeToString,
-                response_deserializer=communication__pb2.MessageReply.FromString,
+        self.SendEmail = channel.unary_unary(
+                '/communication.v1.CommunicationService/SendEmail',
+                request_serializer=communication__pb2.SendEmailRequest.SerializeToString,
+                response_deserializer=communication__pb2.SendEmailResponse.FromString,
                 _registered_method=True)
 
 
 class CommunicationServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def SendMessage(self, request, context):
+    def SendEmail(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -53,16 +53,16 @@ class CommunicationServiceServicer(object):
 
 def add_CommunicationServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'SendMessage': grpc.unary_unary_rpc_method_handler(
-                    servicer.SendMessage,
-                    request_deserializer=communication__pb2.MessageRequest.FromString,
-                    response_serializer=communication__pb2.MessageReply.SerializeToString,
+            'SendEmail': grpc.unary_unary_rpc_method_handler(
+                    servicer.SendEmail,
+                    request_deserializer=communication__pb2.SendEmailRequest.FromString,
+                    response_serializer=communication__pb2.SendEmailResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'communication.CommunicationService', rpc_method_handlers)
+            'communication.v1.CommunicationService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('communication.CommunicationService', rpc_method_handlers)
+    server.add_registered_method_handlers('communication.v1.CommunicationService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -70,7 +70,7 @@ class CommunicationService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def SendMessage(request,
+    def SendEmail(request,
             target,
             options=(),
             channel_credentials=None,
@@ -83,9 +83,9 @@ class CommunicationService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/communication.CommunicationService/SendMessage',
-            communication__pb2.MessageRequest.SerializeToString,
-            communication__pb2.MessageReply.FromString,
+            '/communication.v1.CommunicationService/SendEmail',
+            communication__pb2.SendEmailRequest.SerializeToString,
+            communication__pb2.SendEmailResponse.FromString,
             options,
             channel_credentials,
             insecure,
