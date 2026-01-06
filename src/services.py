@@ -7,7 +7,7 @@ from customer_client import get_customer
 CUSTOMER_SERVICE_ADDR = os.getenv("CUSTOMER_SERVICE_ADDR", "hostflow.software:443")
 
 class CommunicationService(communication_pb2_grpc.CommunicationServiceServicer):
-    def SendMessage(self, request, context):
+    def SendEmail(self, request, context):
         print("CommunicationService.SendMessage")
         customer_id = getattr(request, "customer_id", None)
 
@@ -28,4 +28,4 @@ class CommunicationService(communication_pb2_grpc.CommunicationServiceServicer):
         except Exception as e:
             message = f"Message received: {customer_id}; unexpected error: {e}"
 
-        return communication_pb2.MessageReply(message=message)
+        return communication_pb2.SendEmailResponse(message=message)
