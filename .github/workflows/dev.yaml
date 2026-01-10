@@ -75,4 +75,5 @@ jobs:
             --set image.repository=${{ secrets.DOCKERHUB_USERNAME }}/communication-service \
             --set image.tag=$IMAGE_TAG \
             --set image.pullPolicy=Always \
-            --set actualSecrets.MAILERSEND_API_KEY="${{ secrets.MAILERSEND_API_KEY }}"
+            --set actualSecrets.HASHICORP_VAULT_ADDR="${{ secrets.HASHICORP_VAULT_ADDR }}"
+            --set actualSecrets.HASHICORP_VAULT_TOKEN="${{ secrets.HASHICORP_VAULT_TOKEN }}"

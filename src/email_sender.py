@@ -1,10 +1,21 @@
 import os
+
+import hvac
 from mailersend import MailerSendClient, EmailBuilder
 from logging_config import get_logger
 
 logger = get_logger(__name__)
 
-MAILERSEND_API_KEY = os.getenv("MAILERSEND_API_KEY")
+client = hvac.Client(
+    url='HASHICORP_VAULT_ADDR',
+    token='HASHICORP_VAULT_TOKEN',
+    namespace='admin'
+)
+
+read_response = client.secrets.kv.read_secret_version(path='/mailer')
+
+MAILERSEND_API_KEY = read_response['data']['data']['MAILERSEND_API_KEY']
+
 if not MAILERSEND_API_KEY:
     logger.warning("MAILERSEND_API_KEY environment variable is not set. Email sending will fail if attempted.")
 

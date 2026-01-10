@@ -3,3 +3,4 @@ grpcio>=1.56.0
 grpcio-tools>=1.56.0
 grpcio-reflection>=1.56.0
 pytest==8.4.2
+hvac>=1.4.0
