@@ -6,9 +6,12 @@ from logging_config import get_logger
 
 logger = get_logger(__name__)
 
+HASHICORP_VAULT_ADDR = os.environ.get('HASHICORP_VAULT_ADDR')
+HASHICORP_VAULT_TOKEN = os.environ.get('HASHICORP_VAULT_TOKEN')
+
 client = hvac.Client(
-    url='HASHICORP_VAULT_ADDR',
-    token='HASHICORP_VAULT_TOKEN',
+    url=HASHICORP_VAULT_ADDR,
+    token=HASHICORP_VAULT_TOKEN,
     namespace='admin'
 )
 
